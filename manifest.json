@@ -1,0 +1,17 @@
+{
+  "name": "Lịch Chăm Sóc Cao Su",
+  "short_name": "Lịch Cao Su",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f4f7f4",
+  "theme_color": "#1b5e20",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
