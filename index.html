@@ -92,7 +92,13 @@
 </div>
 
 <script>
-    let completedTasks = JSON.parse(localStorage.getItem('rubberTasks')) || [];
+    // Chuyển dữ liệu sang khoá có tiền tố riêng của app (1 lần, xoá khoá cũ vì chỉ app này dùng) — các app trên
+    // nguyentai219.github.io dùng chung localStorage nên khoá phải có tiền tố riêng để không đè nhau.
+    (function(){ try{ if (localStorage.getItem('caosu_migrated_v1')) return;
+      [['rubberTasks','caosu_rubberTasks']].forEach(function(p){ var v = localStorage.getItem(p[0]);
+        if (v !== null && localStorage.getItem(p[1]) === null) localStorage.setItem(p[1], v); localStorage.removeItem(p[0]); });
+      localStorage.setItem('caosu_migrated_v1', '1'); }catch(e){} })();
+    let completedTasks = JSON.parse(localStorage.getItem('caosu_rubberTasks')) || [];
 
     const yearData = {
         1: "<b>Mục tiêu:</b> Khắc phục tình trạng cây yếu, xiên vẹo do đất cát thiếu mùn. Tập trung phát triển bộ rễ sâu và làm cứng thân gỗ sơ cấp bằng Canxi & Silic.",
@@ -178,7 +184,7 @@
                 showPopup(isDone ? "Hủy thực hiện?" : "Xác nhận thực hiện?", isDone ? "Bạn muốn bỏ đánh dấu hoàn thành?" : "Xác nhận đã hoàn thành công việc này?", () => {
                     if (isDone) completedTasks = completedTasks.filter(id => id !== taskId);
                     else completedTasks.push(taskId);
-                    localStorage.setItem('rubberTasks', JSON.stringify(completedTasks));
+                    localStorage.setItem('caosu_rubberTasks', JSON.stringify(completedTasks));
                     buildSchedule();
                 });
             });
